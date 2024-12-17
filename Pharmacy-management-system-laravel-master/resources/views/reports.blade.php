@@ -112,9 +112,9 @@
 									<th>Product Name</th>
 									<th>Category</th>
 									<th>Price</th>
-									<th>Quantity</th>
-									<th>Discount</th>
-									<th>Expiry Date</th>
+									<th>In stock</th>
+									<th>Sold</th>
+									<!-- <th>In stock</th> -->
 									<th class="action-btn">Action</th>
 								</tr>
 							</thead>
@@ -137,10 +137,10 @@
 											<td>{{AppSettings::get('app_currency', '$')}} {{$product->price}}
 											</td>
 											<td>{{$product->purchase->quantity}}</td>
-											<td>{{$product->discount}}%</td>
-											<td>
+											<td>{{$product->total_sold_qty??'none'}}</td>
+											<!-- <td>
 											{{date_format(date_create($product->purchase->expiry_date),"d M, Y")}}</span>										
-											</td>
+											</td> -->
 											<td>
 												<div class="actions">
 													<a class="btn btn-sm bg-success-light" href="{{route('edit-product',$product)}}">

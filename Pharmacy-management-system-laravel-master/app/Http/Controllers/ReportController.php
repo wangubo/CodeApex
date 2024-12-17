@@ -35,7 +35,11 @@ class ReportController extends Controller
         }
         if($request->resource == "products"){
             $title = "Products Reports";
-            $products = Product::whereBetween(DB::raw('DATE(created_at)'), array($from_date, $to_date))->get();
+            $products = Product::whereBetween(DB::raw('DATE(created_at)'), [$from_date, $to_date])
+            ->withSum(['sales as total_sold_qty' => function ($query) use ($from_date, $to_date) {
+                $query->whereBetween(DB::raw('DATE(created_at)'), [$from_date, $to_date]);
+            }], 'quantity')
+            ->get();
             return view('reports',compact('title','products'));
         }
         if($request->resource == 'purchases'){
