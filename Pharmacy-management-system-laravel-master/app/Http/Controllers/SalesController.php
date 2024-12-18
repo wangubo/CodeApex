@@ -45,6 +45,15 @@ class SalesController extends Controller
         /**update quantity of
             sold item from
          purchases
+         
+        $sold_product = Product::withSum('sales' , 'quantity')->find($request->product);
+        // dd($sold_product->sales_sum_quantity);
+        /**update quantity of
+            sold item from
+         purchases
+        $purchased_item = Purchase::find($sold_product->purchase->id);
+        $new_quantity = ($sold_product->sold_quantity) - ($request->quantity);
+        $notification = '';
         **/
         $purchased_item = Purchase::find($sold_product->purchase->id);
         $new_quantity = ($purchased_item->quantity) - ($request->quantity);
